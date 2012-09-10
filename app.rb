@@ -3,21 +3,20 @@ require 'kramdown'
 require 'open-uri'
 require 'json'
 
+
 enable :sessions
 
 get '/' do
-  "Home page"
+  haml :home
 end
 
 get '/clima/:ciudad' do
   "Hello #{params[:ciudad]}"
 end
 
-get '/time/:ciudad' do
-   @t = Time.now
-   @city = params[:ciudad]	
-   haml :time
-  
+get '/time' do
+  t = Time.now
+  "Hora: #{t.strftime("%T")}, <br>hora UTC #{t.utc}"
 end
 
 post '/login' do
@@ -33,6 +32,11 @@ get '/login' do
   haml :login
 end
 
+get "/logout" do
+  session[:user_name] = nil
+  redirect "/"
+end
+
 before '/admin' do
     unless session['user_name']
       halt "Access denied, please <a href='/login'>login</a>."
@@ -40,37 +44,56 @@ before '/admin' do
 end
 
 get '/admin' do
-  "Welcome Admin"
+  "Welcome Admin <a href='/logout'>logout</a>."
 end
 
 get '/blog' do
-  text = "<h1>My Blog</h1>"
-  Dir.entries("docs").each do |f|
-    if !(f == "." or f == "..")
-     doc = File.open("docs/#{f}").read { |file| file.read } 
-     text << "<p>" << Kramdown::Document.new(doc).to_html << "</p>"
-    end
-  end
-  text
+  #archivos ordenados por fecha
+  files = Dir.entries("docs").sort_by{|f| File.mtime("docs/#{f}")}.reverse
+  haml :blog, :locals => {:files => files}
 end
 
-get '/tweeter' do
+get '/blog/:filename' do
+  haml :post, :locals => { :post => "#{params[:filename]}" }
+end
+
+get '/tweeter/?' do
   ## search hashtag
   haml :tweeter
 end
 
-get '/tweeter/search/:hashtag' do
+get '/tweeter/search/' do
   ## search hashtag
   cantidad = 20
-  res_from_tweeter = open("http://search.twitter.com/search.json?rpp=#{cantidad}&q=#{hashtag}").read
+  res_from_tweeter = open("http://search.twitter.com/search.json?rpp=#{cantidad}&q=#{params[:hashtag]}").read
   tweets_hash = JSON.parse(res_from_tweeter) #json to hash
   ls_tweeter = tweets_hash["results"]
   haml :tweeter_hashtag, :locals => { :ls_tweeter => ls_tweeter } 
 end
 
+not_found do
+  haml '%a{:href => url("/")} back to home'
+end
+
+
+
 __END__
 
+@@ home
+%h1 Home
+%ol
+  %li
+    %a{:href => url("/blog")} blog
+  %li
+    %a{:href => url("/tweeter")} tweeter
+  %li
+    %a{:href => url("/admin")} admin
+  %li
+    %a{:href => url("/time")} time  
+
 @@ login
+%p
+  %a{:href => url("/")} home
 %h1 login
 %form{ :action => "/login", :method => "post"}
   %fieldset
@@ -83,20 +106,16 @@ __END__
         %input{:type => "text", :name => "password", :class => "text"}
       %input{:type => "submit", :value => "Login", :class => "button"}
 
-@@ time
-%p
-	Hora en #{@city}: #{@t.strftime("%T")}
-%p
-	Hora en UTC: #{@t.utc}
-
 @@ tweeter
+%p
+  %a{:href => url("/")} home
 %h1 tweeter
 %form{ :action => "/tweeter/search/", :method => "get"}
   %fieldset
     %ol
       %li
-        %label{:for => "hastag"} Hashtag:
-        %input{:type => "text", :name => "hastag", :class => "text"}
+        %label{:for => "hashtag"} Hashtag:
+        %input{:type => "text", :name => "hashtag", :class => "text"}
       %input{:type => "submit", :value => "search", :class => "button"}
 
 @@ tweeter_hashtag
@@ -105,14 +124,20 @@ __END__
   %fieldset
     %ol
       %li
-        %label{:for => "hastag"} Hashtag:
-        %input{:type => "text", :name => "hastag", :class => "text"}
+        %label{:for => "hashtag"} Hashtag:
+        %input{:type => "text", :name => "hashtag", :class => "text"}
       %input{:type => "submit", :value => "search", :class => "button"}
 %p
   resultados:
 %p
   - ls_tweeter.each do |v|
-    = v["created_at"] 
-    = v["from_user_name"] 
-    = v["text"] 
+    %p
+      date UTC: 
+      = v["created_at"] 
+      %br
+      User Name: 
+      = v["from_user_name"] 
+      %br
+      Text: 
+      = v["text"] 
 

@@ -1,0 +1,9 @@
+- post = post+".md"
+- doc = File.open("docs/#{post}").read { |file| file.read } 
+- a, b = doc.split(/--more--\s/)
+= Kramdown::Document.new(a).to_html
+- unless b.nil?
+  = Kramdown::Document.new(b).to_html
+%p
+  %a{:href => url("/blog")} back to /Blog
+  

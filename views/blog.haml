@@ -1,0 +1,14 @@
+%p
+  %a{:href => url("/")} home
+%h1 My Blog
+- files.each do |f|
+  - if !(f == "." or f == "..")
+    - doc = File.open("docs/#{f}").read { |file| file.read } 
+    - a, b = doc.split(/--more--\s/)
+    %p
+      = Kramdown::Document.new(a).to_html
+    - unless b.nil?
+      %p
+        - filename = f.split(/\./).first
+        %a{:href => url("/blog/#{filename}")} read more ...
+  

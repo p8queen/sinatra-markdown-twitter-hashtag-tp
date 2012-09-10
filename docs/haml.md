@@ -4,6 +4,8 @@ Haml takes your gross, ugly templates and replaces them with veritable Haiku.
 
 Haml is the next step in generating views in your Rails application. Haml is a refreshing take that is meant to free us from the shitty templating languages we have gotten used to.
 
+--more--
+
 **Haml is based on one primary principle. Markup should be beautiful.**
 
 However, its not beauty for beauty’s sake. Unspace Interactive and several other professional Rails shops use Haml exclusively for every one of their projects. In fact, it was created for use in highly productive environments. The beauty makes you faster.
