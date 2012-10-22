@@ -17,6 +17,8 @@ Algunas destacadas companías que usan Sinatra son:
 
 Heroku provee la mayor parte del apoyo para el desarrollo de Sinatra.
 
+Para conocer Sinatra rápidamente visita: [sinatra intro](http://www.sinatrarb.com/intro)
+
 ## Ventajas
 
 Sinatra es muy pequeño. Muy pequeño. Alrededor de **1500 líneas de código.**  Rails tiene más de 100.000 líneas de código. Eso es casi 1/100vo el tamaño de Rails.

@@ -3,7 +3,7 @@ require 'kramdown'
 require 'open-uri'
 require 'json'
 
-
+set :environment, :production
 enable :sessions
 
 get '/' do
@@ -39,6 +39,7 @@ end
 
 before '/admin' do
     unless session['user_name']
+      # To immediately stop a request within a filter or route use:
       halt "Access denied, please <a href='/login'>login</a>."
     end
 end
@@ -71,11 +72,17 @@ get '/tweeter/search/' do
   haml :tweeter_hashtag, :locals => { :ls_tweeter => ls_tweeter } 
 end
 
+# Error
+
 not_found do
   haml '%a{:href => url("/")} back to home'
 end
 
-
+error 400..501 do
+  # activar set enviorement, ver arriba
+  # tambien se puede usar rango 400..510
+  haml '%a{:href => url("/")} ERROR! back to home'
+end
 
 __END__
 
@@ -140,4 +147,3 @@ __END__
       %br
       Text: 
       = v["text"] 
-
