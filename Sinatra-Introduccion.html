@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode, table.sourceCode pre 
+   { margin: 0; padding: 0; border: 0; vertical-align: baseline; border: none; }
+td.lineNumbers { border-right: 1px solid #AAAAAA; text-align: right; color: #AAAAAA; padding-right: 5px; padding-left: 5px; }
+td.sourceCode { padding-left: 5px; }
+code.sourceCode span.kw { color: #007020; font-weight: bold; } 
+code.sourceCode span.dt { color: #902000; }
+code.sourceCode span.dv { color: #40a070; }
+code.sourceCode span.bn { color: #40a070; }
+code.sourceCode span.fl { color: #40a070; }
+code.sourceCode span.ch { color: #4070a0; }
+code.sourceCode span.st { color: #4070a0; }
+code.sourceCode span.co { color: #60a0b0; font-style: italic; }
+code.sourceCode span.ot { color: #007020; }
+code.sourceCode span.al { color: red; font-weight: bold; }
+code.sourceCode span.fu { color: #06287e; }
+code.sourceCode span.re { }
+code.sourceCode span.er { color: red; font-weight: bold; }
+  </style>
+<style type="text/css">
+a:link{ text-decoration: none}
+a:visited{ text-decoration: none}
+a:hover{ text-decoration: underline}
+body{background-color: #DAD8D8 } 
+</style>
+</head>
+<body>
+<a name="Start" />
+<h1 id="sinatra">Sinatra</h1>
+<h2 id="introduccion">Introduccion</h2>
+<p>Sinatra es un framework para aplicaciones web de software libre y código abierto, y escrito en Ruby. Es una alternativa a otros frameworks para aplicaciones webs como Ruby on Rails, Merb, Nitro, Camping, and Rango.</p>
+<p>Diseñado y desarrolado por Blake Mizerany, Sinatra es pequeño y flexible. Sinatra no sigue el típico patrón modelo vista controlador que se ve en otros frameworks, como Ruby on Rails. En su lugar, Sinatra se enfoca en la <strong>rápida creación de aplicaciones web en Ruby con el mínimo esfuerzo.</strong></p>
+<p>Algunas destacadas companías que usan Sinatra son:</p>
+<ul>
+<li>BBC</li>
+<li>2 Engine Yard</li>
+<li>Heroku</li>
+<li>GitHub</li>
+<li>Songbird.</li>
+</ul>
+<p>Heroku provee la mayor parte del apoyo para el desarrollo de Sinatra.</p>
+<h2 id="ventajas">Ventajas</h2>
+<p>Sinatra es muy pequeño. Muy pequeño. Alrededor de <strong>1500 líneas de código.</strong> Rails tiene más de 100.000 líneas de código. Eso es casi 1/100vo el tamaño de Rails.</p>
+<p>Sintra es un framework web mínimo y elegante. No incluye cientos de helpers de biblioteca, o un ORM (como ActiveRecord), o cualquier envolturas complejas en las vistas(views).</p>
+<p>Las Aplicaciones de Sinatra a menudo son solo un archivo, incluyendo las vistas(views).</p>
+<p>Las aplicaciones completas varian en decenas, a veces en algunos cientos de líneas de código, incluyendo las vistas.</p>
+<p>Usa Ruby y puedes usar instrucciones cómo <strong>requiere</strong> para importar tus clases.</p>
+<h2 id="desventajas">Desventajas</h2>
+<p>Al ser un framework minimalista, no fué pensado para atender un conjunto de problemas, cómo si atienden otros Frameworks, cómo Rails, CakePHP, Django, etc. Usa Ruby, que no es el lenguaje más popular, ni el más rápido de los lenguajes de script.</p>
+<h2 id="que-soluciona">Que Soluciona</h2>
+<p>Desarrollo de pequeñas aplicaciones web. Dónde Rails es demasiado grande y a veces no es necesario todo eso. Un framework pequeño es una buena opción para una pequeña aplicación. Otro gran uso es el de servicios. Web services deben proporcionar funciones simples y bien definidas. Existiendo Sinatra, sería un exceso el uso de Rails para los servicios. Velocidad en aprendizaje. Al ser pequeño y simple, en pocos minutos se aprende a usarlo.</p>
+<h2 id="ejemplos">Ejemplos</h2>
+<pre class="sourceCode"><code class="sourceCode ruby">get <span class="st">'/'</span> <span class="kw">do</span><br />  .. show something ..<br /><span class="kw">end</span><br /><br />post <span class="st">'/'</span> <span class="kw">do</span><br />  .. create something ..<br /><span class="kw">end</span><br /><br />put <span class="st">'/'</span> <span class="kw">do</span><br />  .. replace something ..<br /><span class="kw">end</span><br /><br />patch <span class="st">'/'</span> <span class="kw">do</span><br />  .. modify something ..<br /><span class="kw">end</span><br /><br />delete <span class="st">'/'</span> <span class="kw">do</span><br />  .. annihilate something ..<br /><span class="kw">end</span><br /><br />options <span class="st">'/'</span> <span class="kw">do</span><br />  .. appease something ..<br /><span class="kw">end</span></code></pre>
+</body>
+</html>
